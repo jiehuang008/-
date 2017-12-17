@@ -1,0 +1,8 @@
+cd /etc/yum.repos.d
+rm -f ./*
+vi local.repo
+[local_server]
+Name=This is a local sever
+baseurl=file:///position of your rpm packages
+enabled=1
+gpgcheck=0
