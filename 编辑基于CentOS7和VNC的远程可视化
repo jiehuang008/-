@@ -1,13 +1,14 @@
-#CentOS
+#CentOS 7
 yum install tigervnc-server tigervnc
 cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service #此处默认使用5901端口
+cd /etc/systemd/system
 vi vncsever@:1.service
 ExecStart=/sbin/runuser -l root -c "/usr/bin/vncserver %i"   #将<user>替换成root
-PIDFile=/root/.vnc/%H%i.pid                                     #将<user>替换成root
+PIDFile=/root/.vnc/%H%i.pid                                  #将<user>替换成root
 :wq
 vncpasswd #设置VNC密码
-systemctl stop firewalld.service
-systemctl daemon-reload
+systemctl stop firewalld.service #关闭防火墙，也可以不关闭，只要允许5901端口通信即可
+systemctl daemon-reload #重新载入系统设置
 systemctl enable vncserver@:1.service #设置开机自启
 systemctl start vncserver@:1.service #打开vncserver
 systemctl status vncserver@:1.service #查看vnc状态，若显示为Active则配置成功
@@ -15,4 +16,4 @@ systemctl status vncserver@:1.service #查看vnc状态，若显示为Active则�
 #Windows
 从官网下载VNC客户端并安装
 输入IP:5901连接
-输入vncpasswd即可
+输入vncpasswd即可 #经测试，只要网络带宽够，该可视化方案非常流畅稳定
