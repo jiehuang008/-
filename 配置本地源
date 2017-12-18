@@ -5,7 +5,8 @@ vi local.repo
 Name=This is a local sever
 baseurl=file:///position of your rpm packages # like file:///home/localserver
 enabled=1
-gpgcheck=0 #:wq
+gpgcheck=0
+:wq
 rpm -ivh createrepo
 cd /home/localserver
 createrepo -v ./
