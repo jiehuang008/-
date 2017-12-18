@@ -1,0 +1,18 @@
+#CentOS
+yum install tigervnc-server tigervnc
+cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service #此处默认使用5901端口
+vi vncsever@:1.service
+ExecStart=/sbin/runuser -l root -c "/usr/bin/vncserver %i"   #将<user>替换成root
+PIDFile=/root/.vnc/%H%i.pid                                     #将<user>替换成root
+:wq
+vncpasswd #设置VNC密码
+systemctl stop firewalld.service
+systemctl daemon-reload
+systemctl enable vncserver@:1.service #设置开机自启
+systemctl start vncserver@:1.service #打开vncserver
+systemctl status vncserver@:1.service #查看vnc状态，若显示为Active则配置成功
+
+#Windows
+从官网下载VNC客户端并安装
+输入IP:5901连接
+输入vncpasswd即可
