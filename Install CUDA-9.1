@@ -1,0 +1,33 @@
+gcc --version #check if you have "gcc" installed in your system
+sudo rpm -i cuda-repo-rhel7-9-1-local-9.1.85-1.x86_64.rpm
+sudo yum clean all
+sudo yum install cuda
+vi /etc/profile
+export PATH=/usr/local/cuda-9.1/bin${PATH:+:${PATH}}
+#export LD_LIBRARY_PATH=/usr/local/cuda-9.1/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+:wq
+source /etc/profile
+vi /usr/lib/systemd/system/nvidia-persistenced.service
+[Unit]
+Description=NVIDIA Persistence Daemon
+Wants=syslog.target
+[Service]
+Type=forking
+PIDFile=/var/run/nvidia-persistenced/nvidia-persistenced.pid
+Restart=always
+ExecStart=/usr/bin/nvidia-persistenced --verbose
+ExecStopPost=/bin/rm -rf /var/run/nvidia-persistenced
+[Install]
+WantedBy=multi-user.target
+:wq
+sudo systemctl enable nvidia-persistenced
+vi /lib/udev/rules.d/40-redhat.rules
+SUBSYSTEM=="memory", ACTION=="add", PROGRAM="/bin/uname -p", RESULT! #remove this line
+="s390*", ATTR{state}=="offline", ATTR{state}="online" #remove this line
+cuda-install-samples-9.1.sh <dir> #install examples in "/usr/local/cuda-9.1/samples"
+cat /proc/driver/nvidia/version #verify the driver version
+cd ~/NVIDIA_CUDA-9.1_Samples
+make
+cd ~/NVIDIA_CUDA-9.1_Samples/bin
+./ deviceQuery #run this file and check
+./ bandwidthTest #run this file and check
