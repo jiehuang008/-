@@ -1,0 +1,34 @@
+gcc --version #check gcc, if not, try "yum install gcc"
+g++ --version #check g++, if not, try "yum install g++"
+python --version #check python, if not, try "yum install python"
+tar xvzf openmpi-1.10.x.tar.gz #安装openmpi
+cd openmpi-xxx/
+./configure #默认至目录:/usr/local/lib
+make all install
+vi /etc/profile
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib #在最后一行插入
+:wq
+vi ~/.bashrc
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib #在最后一行插入
+:wq
+cd openmpi-1.10.2/examples #test
+make
+mpirun -np 4 hello_c #root账户要在np前面加--allow.xxx
+tar xvzf mpich.xxx.tar.gz #安装mpich
+cd mpich.xxx/
+./configure
+make
+make install
+tar xvzf Cython.xxx.tar.gz #安装Cython
+cd Cython.xxx/
+./configure #may be need you to install "fortran 77 compiler" and "fortran 90 compiler"， exactly, you can ignore this thing.
+make
+python setup.py install
+python #check if Cython has been successfully installed
+import Cython #if there in no mistakes, Down!
+tar xvzf mpi4py.xxx.tar.gz
+cd mpi4py.xxx/
+python setup.py install
+python
+import mpi4py
+from mpi4py import MPI
