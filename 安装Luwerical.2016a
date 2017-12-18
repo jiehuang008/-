@@ -1,0 +1,35 @@
+cd /home/Luwerical.2016a
+gunzip DEVICE-5.0.736.tar.gz
+tar -xvf DEVICE-5.0.736.tar
+yum install DEVICE-5.0.736/rpm_install_files/DEVICE-5.0.736-1.el5.x86_64.rpm
+gunzip FDTD_Solutions-8.15.736.tar.gz
+tar -xvf FDTD_Solutions-8.15.736.tar
+yum install FDTD_Solutions-8.15.736/rpm_install_files/FDTD-8.15.736-1.el5.x86_64.rpm
+gunzip INTERCONNECT-5.5.736.tar.gz
+tar -xvf INTERCONNECT-5.5.736.tar
+yum install INTERCONNECT-5.5.736/rpm_install_files/INTERCONNECT-5.5.736-1.el5.x86_64.rpm
+gunzip MODE_Solutions-7.7.736.tar.gz
+tar -xvf MODE_Solutions-7.7.736.tar
+yum install MODE_Solutions-7.7.736/rpm_install_files/MODE-7.7.736-1.el5.x86_64.rpm
+gunzip Lumerical_FlexLM-1.6.700.tar.gz
+tar -xvf Lumerical_FlexLM-1.6.700.tar
+rm /etc/init.d/lumlmadmin
+cp /opt/lumerical/lumerical-flexlm/etc/lumlmadmin /etc/init.d/
+chkconfig lumlmadmin on
+/etc/init.d/lumlmadmin stop
+gunzip lumerical.2016a.build.736.linux.x64.patch.tar.gz
+tar -xvf lumerical.2016a.build.736.linux.x64.patch.tar -C /
+/etc/init.d/lumlmadmin start
+vi /etc/profile #在最后面插入以下内容
+export PATH=$PATH:/opt/lumerical/device/bin
+export PATH=$PATH:/opt/lumerical/fdtd/bin
+export PATH=$PATH:/opt/lumerical/interconnect/bin
+export PATH=$PATH:/opt/lumerical/mode/bin
+:wq
+source /etc/profile
+vi ~/.bashrc #在最后面插入以下内容
+export PATH=$PATH:/opt/lumerical/device/bin
+export PATH=$PATH:/opt/lumerical/fdtd/bin
+export PATH=$PATH:/opt/lumerical/interconnect/bin
+export PATH=$PATH:/opt/lumerical/mode/bin
+:wq
