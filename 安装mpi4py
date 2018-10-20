@@ -1,34 +1,54 @@
-gcc --version #check gcc, if not, try "yum install gcc"
-g++ --version #check g++, if not, try "yum install g++"
-python --version #check python, if not, try "yum install python"
-tar xvzf openmpi-1.10.x.tar.gz #安装openmpi
+# Check gcc, if not, try "yum install gcc"
+gcc --version
+
+# Check g++, if not, try "yum install g++"
+g++ --version
+
+# Check python, if not, try "yum install python"
+python --version
+
+# Install openmpi
+tar xvzf openmpi-xxx.tar.gz
 cd openmpi-xxx/
-./configure #默认至目录:/usr/local/lib
+./configure # Default directory is : /usr/local/lib
 make all install
-vi /etc/profile
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib #在最后一行插入
-:wq
+
+# Add the lib of openmpi to system variables
 vi ~/.bashrc
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib #在最后一行插入
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib # Insert
 :wq
-cd openmpi-1.10.2/examples #test
+
+# Test openmpi
+cd openmpi-xxx/examples
 make
-mpirun -np 4 hello_c #root账户要在np前面加--allow.xxx
-tar xvzf mpich.xxx.tar.gz #安装mpich
+mpirun --allow-run-as-root -np 4 hello_c
+
+# Install mpich
+tar xvzf mpich.xxx.tar.gz
 cd mpich.xxx/
 ./configure
 make
 make install
-tar xvzf Cython.xxx.tar.gz #安装Cython
+
+# Install Cyhton
+tar xvzf Cython.xxx.tar.gz
 cd Cython.xxx/
-./configure #may be need you to install "fortran 77 compiler" and "fortran 90 compiler"， exactly, you can ignore this thing.
+./configure # May be need you to install "fortran 77 compiler" and "fortran 90 compiler"， exactly, you can ignore this thing.
 make
 python setup.py install
-python #check if Cython has been successfully installed
-import Cython #if there in no mistakes, Down!
+
+# Check if Cython has been successfully installed
+python
+import Cython # If there in no mistakes, Down!
+
+# Install mpi4py and test
 tar xvzf mpi4py.xxx.tar.gz
 cd mpi4py.xxx/
 python setup.py install
 python
 import mpi4py
-from mpi4py import MPI
+from mpi4py import MPI # If there in no mistakes, Down!
+
+################################################################################
+# Tested with CentOS 7, openmpi-1.10.2, mpich-3.2, Cython-0.23.4, mpi4py-2.0.0.#
+################################################################################
