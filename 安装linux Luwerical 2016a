@@ -1,28 +1,49 @@
 cd /home/Luwerical.2016a
+
+# Unzip and install DEVICE
 gunzip DEVICE-5.0.736.tar.gz
 tar -xvf DEVICE-5.0.736.tar
 yum install DEVICE-5.0.736/rpm_install_files/DEVICE-5.0.736-1.el5.x86_64.rpm
+
+# Unzip and install FDTD
 gunzip FDTD_Solutions-8.15.736.tar.gz
 tar -xvf FDTD_Solutions-8.15.736.tar
-yum install FDTD_Solutions-8.15.736/rpm_install_files/FDTD-8.15.736-1.el5.x86_64.rpm
+yum install FDTD_Solutions-8.15.736/rpm_install_files/FDTD-8.15.736-1.el5.x86_64.rpm 
+
+# Unzip and install INTERCONNECT
 gunzip INTERCONNECT-5.5.736.tar.gz
 tar -xvf INTERCONNECT-5.5.736.tar
 yum install INTERCONNECT-5.5.736/rpm_install_files/INTERCONNECT-5.5.736-1.el5.x86_64.rpm
+
+# Unzip and install MODE
 gunzip MODE_Solutions-7.7.736.tar.gz
 tar -xvf MODE_Solutions-7.7.736.tar
 yum install MODE_Solutions-7.7.736/rpm_install_files/MODE-7.7.736-1.el5.x86_64.rpm
+
+# Unzip and install Lumerical_FlexLM
 gunzip Lumerical_FlexLM-1.6.700.tar.gz
 tar -xvf Lumerical_FlexLM-1.6.700.tar
+yum install Lumerical_FlexLM-1.6.700/lumerical-flexlm-1.6.700-1.x86_64.rpm
+
+# Configurate and stop license manager
 rm /etc/init.d/lumlmadmin
 cp /opt/lumerical/lumerical-flexlm/etc/lumlmadmin /etc/init.d/
 chkconfig lumlmadmin on
 /etc/init.d/lumlmadmin stop
+
+# Replace the file and start license manager
 gunzip lumerical.2016a.build.736.linux.x64.patch.tar.gz
 tar -xvf lumerical.2016a.build.736.linux.x64.patch.tar -C /
 /etc/init.d/lumlmadmin start
-vi ~/.bashrc #在最后面插入以下内容
+
+#Add Lumerical software to system variables
+vi ~/.bashrc
 export PATH=$PATH:/opt/lumerical/device/bin
 export PATH=$PATH:/opt/lumerical/fdtd/bin
 export PATH=$PATH:/opt/lumerical/interconnect/bin
 export PATH=$PATH:/opt/lumerical/mode/bin
 :wq
+
+###########################################
+# Tested on CentOS 7 and Lumerical 2016a ##
+###########################################
