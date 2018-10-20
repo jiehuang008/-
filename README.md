@@ -1,1 +1,1 @@
-install something
+关于安装和编译一些常用软件的方法
