@@ -36,7 +36,7 @@ gunzip lumerical.2016a.build.736.linux.x64.patch.tar.gz
 tar -xvf lumerical.2016a.build.736.linux.x64.patch.tar -C /
 /etc/init.d/lumlmadmin start
 
-#Add Lumerical software to system variables
+#Add the path of Lumerical software to system variables
 vi ~/.bashrc
 export PATH=$PATH:/opt/lumerical/device/bin
 export PATH=$PATH:/opt/lumerical/fdtd/bin
@@ -44,6 +44,6 @@ export PATH=$PATH:/opt/lumerical/interconnect/bin
 export PATH=$PATH:/opt/lumerical/mode/bin
 :wq
 
-###########################################
-# Tested on CentOS 7 and Lumerical 2016a ##
-###########################################
+##############################################################
+# Tested on CentOS 7 and Lumerical 2016a, with root access. ##
+##############################################################
