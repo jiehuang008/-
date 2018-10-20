@@ -20,13 +20,6 @@ chkconfig lumlmadmin on
 gunzip lumerical.2016a.build.736.linux.x64.patch.tar.gz
 tar -xvf lumerical.2016a.build.736.linux.x64.patch.tar -C /
 /etc/init.d/lumlmadmin start
-vi /etc/profile #在最后面插入以下内容
-export PATH=$PATH:/opt/lumerical/device/bin
-export PATH=$PATH:/opt/lumerical/fdtd/bin
-export PATH=$PATH:/opt/lumerical/interconnect/bin
-export PATH=$PATH:/opt/lumerical/mode/bin
-:wq
-source /etc/profile
 vi ~/.bashrc #在最后面插入以下内容
 export PATH=$PATH:/opt/lumerical/device/bin
 export PATH=$PATH:/opt/lumerical/fdtd/bin
