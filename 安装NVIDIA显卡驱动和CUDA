@@ -50,4 +50,36 @@ nvidia-smi # If nothing wrong, you should see something like below.
 |    3      2805    G   /usr/bin/gnome-shell                            57MiB |
 +-----------------------------------------------------------------------------+
 
-# Two problems you may encounter when installing the driver
+## Two problems you may encounter when installing the driver
+
+# Error 1 : Kernel source packages do not match
+--------------------------------------------------------------------------------------
+ERROR：unable to find the kernel source tree for the currently running kernel. please 
+make sure you have installed the kernel source files for your kernel and that htey 
+are properly configured; on red hat linux system, for example, be sure you have 
+the 'kernel-source' or 'kernel-devel' RPM installed. if you know the correct kernel 
+source files are installed ,you may specify the kernel source path with the '--
+kernel-source-path' command line option.
+--------------------------------------------------------------------------------------
+
+# Solution 1 : Specify the kernel source directory when install
+sh NVIDIA-Linux-x86_64-xxx.run --kernel-source-path=/usr/src/kernels/xxx.x86_64/
+--------------------------------------------------------------------------------------
+
+# Error 2 : The kernel source package does not match the kernel
+--------------------------------------------------------------------------------------
+ERROR: Unable to load the kernel module 'nvidia.ko'.  This happens most
+       frequently when this kernel module was built against the wrong or
+       improperly configured kernel sources, with a version of gcc that differs
+       from the one used to build the target kernel, or if a driver such as
+       rivafb/nvidiafb is present and prevents the NVIDIA kernel module from
+       obtaining ownership of the NVIDIA graphics device(s).
+       
+       Please see the log entries 'Kernel module load error' and 'Kernel
+       messages' at the end of the file '/var/log/nvidia-installer.log' for
+------------------------------------------------------------------------------------
+
+Solution 2 : Delete the mismatched kernel source packages and install correct kernel source packages
+yum remove kernel-devel # 出现这个问题的原因是CentOS联网后会默认自动更新
+rpm -ivh kernel-devel-3.10.0-327.el7.x86_64.rpm 
+
