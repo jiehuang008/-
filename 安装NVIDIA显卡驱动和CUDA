@@ -19,4 +19,5 @@ reboot
 # Try to install NVIDIA driver
 chmod -R 777 NVIDIA-Linux-x86_64-xxx.run # Grant executable rights
 sh NVIDIA-Linux-x86_64-xxx.run # If there is no error, the installation is successful
+systemctl set-default graphical.target # Enter graphical mode
 reboot
