@@ -2,7 +2,7 @@
 lspci | grep -i nvidia
 
 # Install some necessary software packages
-yum -y install gcc gcc-g++ kernel-devel "kernel-devel-uname-r == $(uname -r)"
+yum -y install gcc gcc-c++ kernel-devel "kernel-devel-uname-r == $(uname -r)"
 
 # Disable the nouveau module
 echo -e "blacklist nouveau\noptions nouveau modeset=0" > /etc/modprobe.d/blacklist.conf
@@ -21,3 +21,33 @@ chmod -R 777 NVIDIA-Linux-x86_64-xxx.run # Grant executable rights
 sh NVIDIA-Linux-x86_64-xxx.run # If there is no error, the installation is successful
 systemctl set-default graphical.target # Enter graphical mode
 reboot
+nvidia-smi # If nothing wrong, you should see something like below.
+
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 375.26                 Driver Version: 375.26                    |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  Graphics Device     Off  | 0000:19:00.0     Off |                  N/A |
+| 23%   36C    P8    10W / 250W |      1MiB / 12189MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+|   1  Graphics Device     Off  | 0000:1A:00.0     Off |                  N/A |
+| 23%   34C    P8     8W / 250W |      1MiB / 12189MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+|   2  Graphics Device     Off  | 0000:67:00.0     Off |                  N/A |
+| 23%   35C    P8     9W / 250W |      1MiB / 12189MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+|   3  Graphics Device     Off  | 0000:68:00.0      On |                  N/A |
+| 23%   37C    P8    10W / 250W |    209MiB / 12186MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID  Type  Process name                               Usage      |
+|=============================================================================|
+|    3      2161    G   /usr/bin/X                                     149MiB |
+|    3      2805    G   /usr/bin/gnome-shell                            57MiB |
++-----------------------------------------------------------------------------+
+
+
