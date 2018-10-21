@@ -80,6 +80,8 @@ ERROR: Unable to load the kernel module 'nvidia.ko'.  This happens most
 ------------------------------------------------------------------------------------
 
 Solution 2 : Delete the mismatched kernel source packages and install correct kernel source packages
-yum remove kernel-devel # 出现这个问题的原因是CentOS联网后会默认自动更新
-rpm -ivh kernel-devel-3.10.0-327.el7.x86_64.rpm 
+yum remove kernel-devel # 出现这个问题的原因是CentOS联网后会默认自动更新yum源,当你执行yum install kernel-devel时安装的是更新后的kernel-devel,会与内核不匹配
+rpm -ivh kernel-devel-xxx.rpm # 注意，此时要手动下载和安装与内核版本（查询内核版本的命令为 uname -a）一致的kernel-devel,或者你也可以将系统软件升级完成以后，
+                              # 重启进入新的内核，再安装驱动，总之，只需要保证内核版本和kernel-devel的版本匹配
+--------------------------------------------------------------------------------------
 
