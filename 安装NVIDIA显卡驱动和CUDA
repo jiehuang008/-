@@ -9,3 +9,14 @@ echo -e "blacklist nouveau\noptions nouveau modeset=0" > /etc/modprobe.d/blackli
 mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.bak
 dracut /boot/initramfs-$(uname -r).img $(uname -r)
 
+# Check the nouveau module has been successfully disabled or not
+lsmod | grep nouveau # If nothing appear, down!
+
+# Enter command line mode and reboot
+systemctl set-default multi-user.target
+reboot
+
+# Try to install NVIDIA driver
+chmod -R 777 NVIDIA-Linux-x86_64-xxx.run # Grant executable rights
+sh NVIDIA-Linux-x86_64-xxx.run # If there is no error, the installation is successful
+reboot
