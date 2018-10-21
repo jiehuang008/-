@@ -50,4 +50,4 @@ nvidia-smi # If nothing wrong, you should see something like below.
 |    3      2805    G   /usr/bin/gnome-shell                            57MiB |
 +-----------------------------------------------------------------------------+
 
-
+# Two problems you may encounter when installing the driver
