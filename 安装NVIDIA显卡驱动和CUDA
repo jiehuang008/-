@@ -4,3 +4,8 @@ lspci | grep -i nvidia
 # Install some necessary software packages
 yum -y install gcc gcc-g++ kernel-devel "kernel-devel-uname-r == $(uname -r)"
 
+# Disable the nouveau module
+echo -e "blacklist nouveau\noptions nouveau modeset=0" > /etc/modprobe.d/blacklist.conf
+mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.bak
+dracut /boot/initramfs-$(uname -r).img $(uname -r)
+
