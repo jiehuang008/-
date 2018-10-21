@@ -1,0 +1,6 @@
+# Check if you have NVIDIA cards in your computer
+lspci | grep -i nvidia
+
+# Install some necessary software packages
+yum -y install gcc gcc-g++ kernel-devel "kernel-devel-uname-r == $(uname -r)"
+
