@@ -1,0 +1,3 @@
+## Turn off the automatic updates CentOS 7
+
+yum -y install cronie
