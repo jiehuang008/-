@@ -1,0 +1,62 @@
+# Remove the default yum and backup it
+cd /etc
+mkdir yum_backup
+cp /etc/yum.repos.d/* /etc/yum_backup
+rm -rf /etc/yum.repos.d/*
+
+# Create a new local yum file
+vi /etc/yum.repos.d/local.repo
+[local_server]
+Name=This is a local sever
+baseurl=file:///position of your rpm packages # like file:///home/local_server, these rpm packages can be extracted from .iso file.
+enabled=1
+gpgcheck=0
+:wq
+
+# Install createrepo
+cd /home/local_server
+rpm -ivh createrepo-xxx
+
+# Configuring local yum source and making it work
+cd /home/local_server # The location of the local installation package
+createrepo -v ./
+yum clean all
+yum makecache
+
+# Synchronize ali epel source from Internet to local(You need to have a virtual machine that can connect 
+# to the Internet and has CentOS 7.2 installed. Besides, you should remove the file under /etc/yum.repos.d
+# before your virtual machine connected to internet and you should establish the local base yum source). 
+wget http://mirrors.aliyun.com/repo/epel-7.repo -O /etc/yum.repos.d/epel-7.repo # Get ali epel yum file.
+yum clean all
+yum repolist
+yum install yum-utils # Install synchronization software
+reposync -r epel -p /xxx(Somewhere in your virtual machine)
+# Copy the RPM installation package from the virtual machine to the folder /home/local_epel_server
+
+# Create a new local epel yum file
+vi /etc/yum.repos.d/local_epel.repo
+[local_epel_server]
+Name=This is a local epel sever
+baseurl=file:///position of your epel rpm packages # like file:///home/local_epel_server
+enabled=1
+gpgcheck=0
+:wq
+
+# Configuring local epel yum source and making it work
+cd /home/local_epel_server # The location of the local epel installation package
+createrepo -v ./
+yum clean all
+yum makecache
+
+# Turn off automatic update
+yum install cronie
+yum install yum-cron
+systemctl start yum-cron.service
+vi  /etc/yum/yum-cron.conf
+update_messages = no
+download_updates = no
+:wq
+
+########################
+# Tested on CentOS 7.2 #
+########################
