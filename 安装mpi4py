@@ -33,8 +33,7 @@ make install
 # Install Cyhton
 tar xvzf Cython.xxx.tar.gz
 cd Cython.xxx/
-./configure # May be need you to install "fortran 77 compiler" and "fortran 90 compiler"， exactly, you can ignore this thing.
-make
+make # You must install python-devel first, or you will get an error.
 python setup.py install
 
 # Check if Cython has been successfully installed
@@ -49,6 +48,6 @@ python
 import mpi4py
 from mpi4py import MPI # If there in no mistakes, Down!
 
-################################################################################
-# Tested with CentOS 7, openmpi-1.10.2, mpich-3.2, Cython-0.23.4, mpi4py-2.0.0.#
-################################################################################
+##################################################################################
+# Tested with CentOS 7.2, openmpi-1.10.2, mpich-3.2, Cython-0.23.4, mpi4py-2.0.0.#
+##################################################################################
