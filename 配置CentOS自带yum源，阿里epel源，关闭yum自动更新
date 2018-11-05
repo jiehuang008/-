@@ -52,6 +52,7 @@ yum makecache
 yum install cronie
 yum install yum-cron
 systemctl start yum-cron.service
+systemctl enable yum-cron.service
 vi  /etc/yum/yum-cron.conf
 update_messages = no
 download_updates = no
